@@ -33,3 +33,6 @@
 By,
 Hermon Asefa
 GitHub
+
+<p align="centre"> <img alt="demo" src="https://hermonj.github.io/Hermon-Ethiopian-coffe/"></p>
+

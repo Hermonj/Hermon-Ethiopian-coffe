@@ -35,5 +35,5 @@ Hermon Asefa
 GitHub
 
 <p align="center">
->>< a href="https://hermonj.github.io/Hermon-Ethiopian-coffe/ ">demo</ a><<<br>
+>><a href="https://hermonj.github.io/Hermon-Ethiopian-coffe/">demo</a><<<br>
 <br>

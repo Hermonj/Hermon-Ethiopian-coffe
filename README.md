@@ -12,8 +12,8 @@
 # Technlogies
 * HTML
 * CSS
-# Features:
-* User side- Add products to cart, Place an order, Request their desired products Admin side- Manage Inventory, Manage Users
+*JS
+
 # plan for whole project
 * WEEK 8 creat github account
 * WEEK 9 Readme file
@@ -21,13 +21,12 @@
 
 
 # Features:
-* Our coffees
-* Gedeb / Yirgacheffe
-* Dhilgee / Guji
-* Biftu Gudina Cooperative / Biftu Gudina
-* Kayon Mountain / Guji
-* Yirgacheffe / Knots Family
-* Sidamo / Hunkute
+*Home
+* About us
+* our coffee
+* About Ethiopia
+* Order
+* Contact
 
 By,
 Hermon Asefa

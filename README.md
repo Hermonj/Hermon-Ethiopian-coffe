@@ -1,5 +1,5 @@
 # Hermon Ethiopian coffee shop
-
+![Screenshot](https://github.com/Hermonj/Hermon-Ethiopian-coffe/screenshot.jpg)
 
 * is to be the best at what we do. We are dedicated and deliver on our promises. We source our own coffees and roast in small batches daily ensuring the coffee we sell and serve is always fresh.
 

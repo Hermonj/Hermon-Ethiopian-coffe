@@ -1,62 +1,62 @@
-var firebaseConfig = {
-    apiKey: "AIzaSyCHexXQJn2v_0HfUH64LEzYxCh33rZibVI",
-    authDomain: "registertohermoncoffe.firebaseapp.com",
-    databaseURL: "https://registertohermoncoffe.firebaseio.com",
-    projectId: "registertohermoncoffe",
-    storageBucket: "registertohermoncoffe.appspot.com",
-    messagingSenderId: "847216161531",
-    appId: "1:847216161531:web:cd73500c93a482d317f65e",
-    measurementId: "G-KFJ4WE7EJ3"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
- 
- 
+const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 
-//Reference for form collection(3)
-let formMessage = firebase.database().ref('register');
+const app = express();
 
-//listen for submit event//(1)
-document
-  .getElementById('registertohermoncoffe')
-  .addEventListener('submit', formSubmit);
+// Passport Config
+require('./config/passport')(passport);
 
-//Submit form(1.2)
-function formSubmit(e) {
-  e.preventDefault();
-  // Get Values from the DOM
-  let name = document.querySelector('#name').value;
-  let email = document.querySelector('#email').value;
-  let password = document.querySelector('#password').value;
-  let bio = document.querySelector('#bio').value;
-  let job = document.querySelector('#job').value;
-  let interest = document.querySelector('#interest').value;
+// DB Config
+const db = require('./config/keys').mongoURI;
 
-  //send message values
-  sendMessage(name, email, password, bio, job, interest);
+// Connect to MongoDB
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
-  //Show Alert Message(5)
-  document.querySelector('.alert').style.display = 'block';
+// EJS
+app.use(expressLayouts);
+app.set('view engine', 'ejs');
 
-  //Hide Alert Message After Seven Seconds(6)
-  setTimeout(function() {
-    document.querySelector('.alert').style.display = 'none';
-  }, 7000);
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
 
-  //Form Reset After Submission(7)
-  document.getElementById('registertohermoncoffe').reset();
-}
+// Express session
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
-//Send Message to Firebase(4)
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-function sendMessage(name, email, password, bio, job, interest) {
-  let newFormMessage = formMessage.push();
-  newFormMessage.set({
-    name: name,
-    email: email,
-    password: password,
-    bio: bio,
-    job: job,
-    Interest: interest
-  });
-}
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Routes
+app.use('/', require('./routes/index.js'));
+app.use('/users', require('./routes/users.js'));
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
